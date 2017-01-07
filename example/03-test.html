@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			function toNum(strNum){
+				return +strNum;
+			}
+			
+			/* 测试 */
+			console.log( toNum("232323223") );    // 232323223
+			console.log( toNum("ABSD") );     // NaN
+			/*同样也适用于Date*/
+			console.log( toNum(+ new Date()) );   // 返回当前时间的时间戳数字
+		</script>
+	</body>
+</html>
