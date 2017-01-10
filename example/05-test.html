@@ -142,7 +142,7 @@
 		 * 	判断e.target和它所有祖先元素是否满足过滤条件。如果满足就在事件对象上增加一个delegateTarget属性，用于后面使用，然后调用事件处理函数
 		 * 	如果检查了所有的祖先元素，都没有找到符合条件的，就不触发处理函数
 		*/
-		/*function buttonFilter(ele){
+		function buttonFilter(ele){
 			return ele.classList && hasClass(ele,"btn");			
 		}
 		function buttonHandler(e){
@@ -150,14 +150,14 @@
 			if( !hasClass(button_btn,"active") ) addClass(button_btn,"active");
 			else removeClass(button_btn,"active");
 		}
-		toolbar.addEventListener("click",delegate(buttonFilter,buttonHandler));*/
+		toolbar.addEventListener("click",delegate(buttonFilter,buttonHandler));
 		
 		
 		/* 
 		 * 下面把这个方法封装起来 
 		 * 
 		*/
-		var criteria = {
+		/*var criteria = {
 			isElement:function(e){ return e instanceof HTMLElement; },
 			hasClass:function(cls){
 				return function(e){
@@ -170,6 +170,6 @@
 			return function(handler){
 				return delgate(criteria,handler);
 			}
-		}
+		}*/
 	</script>
 </html>

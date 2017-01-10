@@ -1,30 +1,3 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-		<style type="text/css">
-			.msg-box{ padding: 5% 15px; }
-			.msg-box .msg-txt{ min-height: 30px; line-height: 30px; text-align: center; color:#e53e46 } 
-			.mui-input-group {width: 90%; margin:2% 5%;border-radius: 10px;box-shadow: 0px 0px 5px #000;}
-			.mui-input-group:before,.mui-input-group:after{height: 0;}
-			.mui-input-group input{ border: 0px;width: 98%;margin-left: 1%;outline-color:#fff;font-size: 14px;line-height: 20px;height: 20px; }
-			.mui-input-group input:focus,.mui-btn:focus{ outline-color:#fff; }
-			.mui-btn{border: 0; padding: 8px 0; background: #fff; color: #fff; width: 60%; margin:0 20%; border-radius:25px;background-color: #01a29a;opacity: 0.6;}
-		</style>
-	</head>
-	<div class="msg-box">
-		<div id="msgTxt" class="msg-txt"></div>
-	</div>
-	<div class="mui-input-group">
-		<input id="idCardNum" type="text" class="mui-input-clear mui-input" placeholder="身份证号">
-	</div>
-	<button id='nextStep' class="mui-btn mui-btn-block">下一步</button>
-	<body>
-	<script type="text/javascript">
-		var idCardNum = document.getElementById("idCardNum");
-		var nextStep = document.getElementById("nextStep");
-		
 		/*  15位身份证
 		 *    前6位位地区代码+第7-12位为出生年月日+第13-15位为顺序位（男性最后一位为单数，女为双数）
 		 *  18位身份证
@@ -111,11 +84,3 @@
 			}
 			return false;
 		}
-
-		nextStep.addEventListener("click",function(){
-			verifyIdcard(idCardNum.value);
-		},false);
-
-	</script>
-	</body>
-</html>
