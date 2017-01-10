@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			li{ list-style: none;margin-bottom: 3px; }
+			button{ font-size: 14px;
+				    font-weight: 400;
+				    line-height: 1.42;
+				    position: relative;
+				    display: inline-block;
+				    margin-bottom: 0;
+				    padding: 6px 30px;
+				    cursor: pointer;
+				    -webkit-transition: all;
+				    transition: all;
+				    -webkit-transition-timing-function: linear;
+				    transition-timing-function: linear;
+				    -webkit-transition-duration: .2s;
+				    transition-duration: .2s;
+				    text-align: center;
+				    vertical-align: top;
+				    white-space: nowrap;
+				    color: #333;
+				    border: 1px solid #ccc;
+				    border-radius: 3px;
+				    border-top-left-radius: 3px;
+				    border-top-right-radius: 3px;
+				    border-bottom-right-radius: 3px;
+				    border-bottom-left-radius: 3px;
+				    background-color: #fff;
+				    background-clip: padding-box;
+				}
+			.active{ background-color: red; }
+		</style>
+	</head>
+	<body>
+		<ul class="toolbar">
+			<li><button class="btn" id="button_0001">zzzz</button></li>
+		  	<li><button class="btn" id="button_0002">xxxx</button></li>
+		  	<li><button class="btn" id="button_0003">zzzz</button></li>
+		  	<li><button class="btn" id="button_0004">zzzz</button></li>
+		  	<li><button class="btn" id="button_0005">zzzz</button></li>
+		  	<li><button class="btn" id="button_0006">zzzz</button></li>
+		  	<li><button class="btn" id="button_0007">zzzz</button></li>
+		  	<!--... 992 more elements ...-->
+		  	<li><button class="btn" id="button_1000">yyyy</button></li>
+		</ul>
+	</body>
+	<script type="text/javascript">
+		var buttons = document.querySelectorAll(".toolbar .btn");
+		var toolbar = document.querySelector(".toolbar");
+		
+		function hasClass(ele,cls){
+			cls = cls || '';
+			if( cls.replace(/\s/g, '').length === 0 ) return false;         // 当cls没有参数时，返回FALSE
+			return new RegExp(' ' + cls + ' ').test(' ' + ele.className + ' ');   // RegExpObject.test(string) 用于检测一个字符串是否匹配某个模式
+		}
+		function addClass(ele,cls){
+			if(!hasClass(ele,cls)) {
+				ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
+			}
+		}
+		function removeClass(ele, cls) {
+		    if (hasClass(ele, cls)) {
+		        var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
+		        while (newClass.indexOf(' ' + cls + ' ') >= 0) {
+		            newClass = newClass.replace(' ' + cls + ' ', ' ');
+		        }
+			    ele.className = newClass.replace(/^\s+|\s+$/g, '');
+		    }
+		}
+		
+		
+		
+		/*
+		 * 以下代码只会最后一个button有效果
+		 * 因为当我们点击按钮的时候，循环已经完成，button一直指向最后一个按钮
+		 * for( var i = 0;i < buttons.length;i++ ){
+			var button = buttons[i];
+			console.log(button);
+			button.addEventListener("click",function(){
+				if( !hasClass(button,"active") ) addClass(button,"active");
+				else removeClass(button,"active");
+			});
+		}*/
+		
+		
+		
+		/*  
+		 * 下面代码虽然可以达到效果，但是每个按钮都会产生一个createToolBarButtonHandler方法
+		 * 当有很多个按钮需要监听的时候就很蹩脚了
+		function btnHandler(btn){
+			return function(){
+				if( !hasClass(btn,"active") ) addClass(btn,"active");
+				else removeClass(btn,"active");
+			};
+		}
+		for( var i = 0;i < buttons.length;i++ ){
+			buttons[i].addEventListener("click",btnHandler(buttons[i]));
+		}
+		*/
+		
+		
+		
+		/*
+		 * 使用handler中的this，即event.currentTarget 
+		function btnHandler(e){
+			 // target在事件流的目标阶段，即例子中的button.btn
+			 // currentTarget在事件流的捕获、目标、冒泡阶段，即例子中的ul.toolbar
+			 // 当处于捕获和冒泡阶段的时候，target指向被单击的对象，而currentTarget指向当前事件活动的对象（一般为父级）
+			var _thisParent = e.currentTarget;           
+			if( !hasClass(_thisParent,"active") ) addClass(_thisParent,"active");
+			else removeClass(_thisParent,"active");
+		}
+		for( var i = 0;i < buttons.length;i++ ){
+			buttons[i].addEventListener("click",btnHandler);
+		}
+		 */
+		
+		
+		
+		/*
+		 * 但是如果页面会动态地添加新的按钮,此时要在新添加的按钮上绑定监听处理:
+		 * 此时，需要了解一个概念：
+		 * 冒泡/捕获 阶段：绝大部分事件都会产生冒泡/捕获阶段，捕获阶段是从最外层的 document 开始，穿过目标元素的祖先元素，到达目标元素，然后再原路冒泡回到document
+		 * Delegated Events：是把事件处理绑定在真正需要被绑定元素的祖先元素上，然后通过一定的条件筛选出真正需要绑定的元素
+		toolbar.addEventListener("click",function(e){
+			var button_btn = e.target;
+			if( !hasClass(button_btn,"active") ) addClass(button_btn,"active");
+			else removeClass(button_btn,"active");
+		});
+		*/
+		
+		
+		
+		/* 
+		 *  但是很明显，上面的例子中，点击ul.toolbar也会addClass/removeClass
+		 * 此时我们需要过滤掉不能被点击的元素
+		 * 过滤辅助函数的作用：
+		 * 	判断e.target和它所有祖先元素是否满足过滤条件。如果满足就在事件对象上增加一个delegateTarget属性，用于后面使用，然后调用事件处理函数
+		 * 	如果检查了所有的祖先元素，都没有找到符合条件的，就不触发处理函数
+		*/
+		/*function buttonFilter(ele){
+			return ele.classList && hasClass(ele,"btn");			
+		}
+		function buttonHandler(e){
+			var button_btn = e.delegateTarget;
+			if( !hasClass(button_btn,"active") ) addClass(button_btn,"active");
+			else removeClass(button_btn,"active");
+		}
+		toolbar.addEventListener("click",delegate(buttonFilter,buttonHandler));*/
+		
+		
+		/* 
+		 * 下面把这个方法封装起来 
+		 * 
+		*/
+		var criteria = {
+			isElement:function(e){ return e instanceof HTMLElement; },
+			hasClass:function(cls){
+				return function(e){
+					return criteria.isElement(e) && e.classList.contains(cls);
+				}
+			}
+			// 这里可以写更多的criteria方法
+		};
+		function partialDelgate (criteria){
+			return function(handler){
+				return delgate(criteria,handler);
+			}
+		}
+	</script>
+</html>

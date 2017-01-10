@@ -1,26 +1,11 @@
-function hasClass(elem, cls) {
-    cls = cls || '';
-    if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
-    return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');
+function fib(n){
+	if( n <= 0 )  return "n必须大于0";
+	if( n === 1 ) return 0;
+	if( n === 2 ) return 1;
+	var a = 0,b = 1;
+	for( var i = 2;i < n-1;i++ ){
+		b = a + b;
+		a = b - a;
+	}
+	return a + b;
 }
-
-function addClass(ele, cls) {
-    if (!hasClass(ele, cls)) {
-        ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
-    }
-}
-
-function removeClass(ele, cls) {
-    if (hasClass(ele, cls)) {
-        var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
-        while (newClass.indexOf(' ' + cls + ' ') >= 0) {
-            newClass = newClass.replace(' ' + cls + ' ', ' ');
-        }
-        ele.className = newClass.replace(/^\s+|\s+$/g, '');
-    }
-}
-
-function toggleClass(obj, cls) {
-    hasClass(obj, cls) ? removeClass(obj, cls) : addClass(obj, cls);
-}
-

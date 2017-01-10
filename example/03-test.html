@@ -5,16 +5,51 @@
 		<title></title>
 	</head>
 	<body>
+		<div>
+			<li class="my-class">pppppp</li>
+			<li class="my-class">pppppp</li>
+			<li class="my-class">pppppp</li>
+		</div>
+		
+		<div id="insert"></div>
+		
 		<script type="text/javascript">
-			function toNum(strNum){
-				return +strNum;
-			}
+			/* 原生js实现jQuery选择器  */  
+			/* 
+			 * $("div")
+			 * $(".my-class")
+			 * $("li:first-child")
+			 * $(".my-class").get(0)
+			 */
+			var div = document.getElementsByTagName("div"),
+				myClass = document.querySelectorAll(".my-class"),     // document.getElementsByClassName("my-class") 也可以实现
+			 	firstChild = document.querySelectorAll("li:first-child"),
+				firstChild2 = document.querySelector(".my-class");
+			console.log("div",div);
+			console.log("myClass",myClass);
+			console.log("firstChild",firstChild);
+			console.log("firstChild2",firstChild2);
 			
-			/* 测试 */
-			console.log( toNum("232323223") );    // 232323223
-			console.log( toNum("ABSD") );     // NaN
-			/*同样也适用于Date*/
-			console.log( toNum(+ new Date()) );   // 返回当前时间的时间戳数字
+			
+			/* 原生js实现jQuery插入HTML元素  */
+			/* 
+			 * $("#insert").append("<div id='myDiv'><img src='advice-icon-jflh.png'/></div>");
+			 */
+			var insert = document.getElementById("insert");
+			insert.innerHTML += "<div id='myDiv'><img src='advice-icon-jflh.png'/></div>";
+			/* 上述方法有点蹩脚。还有一种更好的方法，如下： */
+			var frag = document.createDocumentFragment();
+			var myDiv = document.createElement("div");
+			myDiv.id = "myDiv";
+			var img = document.createElement("img");
+			img.src = "advice-icon-jflh.png";
+			myDiv.appendChild(img);
+			frag.appendChild(myDiv);
+			insert.appendChild(frag);
+			
+			
+			/* 原生js实现jQuery事件绑定  */
+			
 		</script>
 	</body>
 </html>

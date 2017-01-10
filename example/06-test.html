@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/* 
+			 * 如果一个字符串是以一个或多个空格开始，全部空格替换为空
+			 * 如果一个字符串是以一个或多个空格结束，全部空格替换为空
+			*/
+			var inputText = "    zzzzzzzzzzyyyyyyyyyyxxxxxxxx     ";
+			var outputText = inputText.replace(/^\s+|\s+$/g,'');
+			console.log(inputText);
+			console.log(outputText);
+		</script>
+	</body>
+</html>

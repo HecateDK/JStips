@@ -3,49 +3,46 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<style type="text/css">
+			.origin-cls{ color: #333; }
+			.add-cls{ color: red; }
+			.toggle-cls{ text-decoration: underline; }
+		</style>
 	</head>
 	<body>
-		<div>
-			<li class="my-class">pppppp</li>
-			<li class="my-class">pppppp</li>
-			<li class="my-class">pppppp</li>
-		</div>
-		
-		<div id="insert"></div>
-		
+		<p id="test" class="origin-cls">测试测试测试测试</p>
 		<script type="text/javascript">
-			/* 原生js实现jQuery选择器  */  
-			/* 
-			 * $("div")
-			 * $(".my-class")
-			 * $("li:first-child")
-			 * $(".my-class").get(0)
-			 */
-			var div = document.getElementsByTagName("div"),
-				myClass = document.querySelectorAll(".my-class"),     // document.getElementsByClassName("my-class") 也可以实现
-			 	firstChild = document.querySelectorAll("li:first-child"),
-				firstChild2 = document.querySelector(".my-class");
-			console.log("div",div);
-			console.log("myClass",myClass);
-			console.log("firstChild",firstChild);
-			console.log("firstChild2",firstChild2);
+			function hasClass(elem, cls) {
+			    cls = cls || '';
+			    if (cls.replace(/\s/g, '').length == 0) return false; //当cls没有参数时，返回false
+			    return new RegExp(' ' + cls + ' ').test(' ' + elem.className + ' ');   // RegExpObject.test(string) 用于检测一个字符串是否匹配某个模式
+			}
 			
+			function addClass(ele, cls) {
+			    if (!hasClass(ele, cls)) {
+			        ele.className = ele.className == '' ? cls : ele.className + ' ' + cls;
+			    }
+			}
 			
-			/* 原生js实现jQuery插入HTML元素  */
-			/* 
-			 * $("#insert").append("<div id='myDiv'><img src='advice-icon-jflh.png'/></div>");
-			 */
-			var insert = document.getElementById("insert");
-			insert.innerHTML += "<div id='myDiv'><img src='advice-icon-jflh.png'/></div>";
-			/* 上述方法有点蹩脚。还有一种更好的方法，如下： */
-			var frag = document.createDocumentFragment();
-			var myDiv = document.createElement("div");
-			myDiv.id = "myDiv";
-			var img = document.createElement("img");
-			img.src = "advice-icon-jflh.png";
-			myDiv.appendChild(img);
-			frag.appendChild(myDiv);
-			insert.appendChild(frag);
+			function removeClass(ele, cls) {
+			    if (hasClass(ele, cls)) {
+			        var newClass = ' ' + ele.className.replace(/[\t\r\n]/g, '') + ' ';
+			        while (newClass.indexOf(' ' + cls + ' ') >= 0) {
+			            newClass = newClass.replace(' ' + cls + ' ', ' ');
+			        }
+			        ele.className = newClass.replace(/^\s+|\s+$/g, '');
+			    }
+			}
+			
+			function toggleClass(obj, cls) {
+			    hasClass(obj, cls) ? removeClass(obj, cls) : addClass(obj, cls);
+			}
+			
+			/*测试*/
+			var test = document.getElementById("test");
+			addClass( test,'add-cls' );
+			removeClass( test,'add-cls' );
+			toggleClass( test,'toggle-cls' );
 		</script>
 	</body>
 </html>
