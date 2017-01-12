@@ -43,6 +43,24 @@
 			addClass( test,'add-cls' );
 			removeClass( test,'add-cls' );
 			toggleClass( test,'toggle-cls' );
+			
+			
+			/*			 
+			 * 当我们简单地逐个设置Css的属性，而并非将它们全部传递给JQuery的Css函数时，性能明显会快很多
+			 * $("#test").css({
+			 * 	background: "#FF0000",
+			  	"box-shadow": "1px 1px 5px 5px red",
+			  	width: "100px",
+			  	height: "100px",
+			  	display: "block"	 
+			});
+
+			el.style.backgroundColor = "#FF0000";
+			el.style.width = "100px";
+			el.style.height = "100px";
+			el.style.display = "block";
+			el.style.boxShadow = "1px 1px 5px 5px red";
+			*/
 		</script>
 	</body>
 </html>

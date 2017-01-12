@@ -13,6 +13,16 @@
 		
 		<div id="insert"></div>
 		
+		<a id="test">点我</a>
+		<div class="box"></div>
+		
+		
+		<ul>
+			<li class="list"></li>
+			<li class="list"></li>
+			<li class="list"></li>
+			<li class="list"></li>
+		</ul>
 		<script type="text/javascript">
 			/* 原生js实现jQuery选择器  */  
 			/* 
@@ -34,7 +44,7 @@
 			/* 原生js实现jQuery插入HTML元素  */
 			/* 
 			 * $("#insert").append("<div id='myDiv'><img src='advice-icon-jflh.png'/></div>");
-			 */
+			*/
 			var insert = document.getElementById("insert");
 			insert.innerHTML += "<div id='myDiv'><img src='advice-icon-jflh.png'/></div>";
 			/* 上述方法有点蹩脚。还有一种更好的方法，如下： */
@@ -48,8 +58,87 @@
 			insert.appendChild(frag);
 			
 			
-			/* 原生js实现jQuery事件绑定  */
+			/* 原生js实现$.getJSON()  */
+			/* 
+			 * $.getJSON('jsonData.json',function(data){ })
+			 * 也可以使用ajax()，如下：
+			   $.ajax({
+			   	   type: 'GET',
+			   	   url: 'jsonData.json',
+			   	   sucess:function(resp){ },
+			   	   error:function(){  }
+			   });
+			*/ 
+			var request = new XMLHttpRequest();
+			request.open('GET','jsonData.json',true);
+			request.onload = function(){
+				if(request.status >= 200 && request.status < 400){
+					// success
+					var data = JSON.parse(request.responseText);
+					console.log(data);
+				}else{
+					console.log("It returned an error");
+				}
+			};
+			request.onerror = function(){
+				// 存在某种链接错误
+			}
+			request.send();
 			
+			
+			/* 原生js实现Post  */
+			/* 
+			 * $.ajax({
+			  		type: 'POST',
+			  		url: '/my/url',
+			  		data: data
+			   });
+			*/ 
+			var request = new XMLHttpRequest();
+			request.open( 'POST','my/url',true );
+			request.setRequestHeader( 'Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8' );
+			request.send(data);
+			
+			
+			/* 原生js实现fadeIn()和fadeOut() */
+			/* 
+			 * $(el).fadeIn();
+			 * $(el).fadeOut();
+			*/ 
+			function fadeIn(el) {
+			  el.style.opacity = 0;		
+			  var last = +new Date();
+			  var tick = function() {
+			    el.style.opacity = +el.style.opacity + (new Date() - last) / 400;
+			    last = +new Date();		
+			    if (+el.style.opacity < 1) {
+			      (window.requestAnimationFrame && requestAnimationFrame(tick)) || setTimeout(tick, 16);
+			    }
+			  };	
+			  tick();
+			}
+			var el = document.querySelector('.box');
+			document.getElementById("test").addEventListener("click",function(){
+				fadeIn(el);
+			})
+			
+			
+			/* 原生js实现hide()和show() */
+			/* 
+			 * $(el).hide();
+			 * $(el).show();
+			*/
+			el.style.display = "none";
+			el.style.display = "block";
+			
+			
+			/* 原生js实现each() */
+			/* 
+			 * $(el).each(function(i,el){  });
+			*/
+			function forEachElement(selector,fn){
+				var elements = document.querySelectorAll("")
+			}
 		</script>
 	</body>
 </html>
