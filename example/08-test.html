@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+	    <title></title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	</head>
+	<body>
+	    <script type="text/javascript">
+	    	function reverseString(str){
+				// 第一步，使用split()方法，返回一个新数组
+				var splitString = str.split("");
+				// 第二步，使用reverse()方法创建一个反转的新数组
+				var reverseArray = splitString.reverse();
+				// 第三步，使用join()方法将数组的每个元素连接在一起，组合成一个新字符串
+				var joinArray = reverseArray.join("");
+				// 第四步，返回反转后的新字符串
+				console.log( joinArray );
+				return joinArray;
+			}
+			reverseString( 'hello word' );
+			
+			function reverseString1(str){
+				var newString = "";
+				for( var i = str.length - 1 ; i >= 0 ; i-- ){
+					newString += str[i];
+				}
+				console.log( newString );
+				return newString;
+			}
+			reverseString1( 'hello word' );
+			
+			function reverseString3(str){
+				if( str === "" )  return ""
+				else {
+					console.log( reverseString3( str.substr(1) ) + str.charAt(0) );  // 这里打印出来会有神奇的事情发生
+					return reverseString3( str.substr(1) ) + str.charAt(0);
+				}
+			}
+			reverseString3( "hello word" );
+			
+			function reverseString4(str) { 
+				return (str === '') ? '' : reverseString(str.substr(1)) + str.charAt(0); 
+			} 
+			reverseString4("hello word"); 
+	    </script>
+	</body>
+</html>
