@@ -10,3 +10,4 @@
 * [06 - 几个简单的正则表达式（未完善）](https://github.com/HecateDK/JStips/tree/master/example/06-test.html)
 * [07 - js实现身份证验证](https://github.com/HecateDK/JStips/tree/master/example/07-test.html)
 * [08 - js反转字符串](https://github.com/HecateDK/JStips/issues/1)
+* [09 - 3个有用的数组技巧](https://github.com/HecateDK/JStips/issues/2)
