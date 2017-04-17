@@ -11,3 +11,4 @@
 * [07 - js实现身份证验证](https://github.com/HecateDK/JStips/tree/master/example/07-test.html)
 * [08 - js反转字符串](https://github.com/HecateDK/JStips/issues/1)
 * [09 - 3个有用的数组技巧](https://github.com/HecateDK/JStips/issues/2)
+* [09 - 跨浏览器事件处理](https://github.com/HecateDK/JStips/issues/3)
